@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 
-class UserController extends Controller
+class PatientController extends Controller
 {
 
 
     public function __construct()
     {
         $this->middleware('auth');
-      
+        $this->middleware('role:patient');
     }
 
 
@@ -24,10 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
-        return view('user.books.index',[
-            'books' => $books
-        ]);
+       
     }
 
     /**
@@ -59,10 +56,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $book = Book::findOrFail($id);
-        return view('user.books.show', [
-            'book' => $book
-        ]);
+        
     }
 
     /**

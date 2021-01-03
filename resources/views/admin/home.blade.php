@@ -14,7 +14,10 @@
                         </div>
                     @endif
 
-                    You are logged in as an admin. <a href="{{route('admin.users.index')}}">Users</a>
+                    You are logged in as an admin. <a class="btn btn-primary" href="{{route('admin.users.index')}}">Users</a>
+                    <a class="btn btn-primary" href="{{route('admin.doctors.index')}}">Doctors</a>
+                    <a class="btn btn-primary" href="{{route('admin.patients.index')}}">Patients</a>
+                    <a class="btn btn-primary" href="{{route('admin.visits.index')}}">Visit</a>
                 </div>
             </div>
         </div>

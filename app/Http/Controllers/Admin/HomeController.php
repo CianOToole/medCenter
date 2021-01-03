@@ -26,8 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $user = Auth::user();
-        // $user->authorizeRoles('admin');
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
 
 
         return view('admin.home');

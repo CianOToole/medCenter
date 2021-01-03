@@ -10,7 +10,7 @@ use App\Models\UserRole;
 use Auth;
 
 
-class UserController extends Controller
+class DoctorController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -31,8 +31,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        $roles =  UserRole::all();
-        return view('admin.users.index', [
+        $roles =  UserRole::where('role_id', '2')->get();
+        return view('admin.doctors.index', [
             'users' => $users,
             'roles' => $roles
         ]);
@@ -46,7 +46,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return view('admin.users.create', [
+        return view('admin.doctors.create', [
             'roles' => $roles
         ]);
     }
@@ -74,7 +74,7 @@ class UserController extends Controller
         $user->save();
         $user->roles()->attach(Role::where('id', $request->input('role_id'))->first());
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.doctors.index');
     }
 
     /**
@@ -87,7 +87,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $role =  UserRole::where('user_id', $id)->get();
-        return view('admin.users.show', [
+        return view('admin.doctors.show', [
             'user' => $user,
             'role' => $role
         ]);
@@ -103,7 +103,7 @@ class UserController extends Controller
     {
         $roles =  UserRole::all();
         $user = User::findOrFail($id);
-        return view('admin.users.edit', [
+        return view('admin.doctors.edit', [
             'user' => $user,
             'roles' => $roles
         ]);
@@ -127,16 +127,19 @@ class UserController extends Controller
             'phone' => 'required|max:191',
             'email' => 'required|max:191'
         ]);
-
+        $role =  UserRole::where('user_id', $id)->get();
         $user =  User::findOrFail($id);
         $user->name = $request->input('name');
         $user->address = $request->input('address');
         $user->phone = $request->input('phone');
         $user->email = $request->input('email');
         $user->save();
-        $user->roles()->detach($request->input('role_id'));
-
-        return redirect()->route('admin.users.index');
+        foreach($role as $r){
+            if($r->role_id  != $request->input('role_id')){
+                // $user->roles()->attach($request->input('role_id'));
+            }
+        }
+        return redirect()->route('admin.doctors.index');
     }
 
     /**
@@ -153,6 +156,7 @@ class UserController extends Controller
             $user->roles()->detach($r->id);
         }
         $user->delete();
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.doctors.index');
     }
 }
+

@@ -6,7 +6,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="card">
                 <div class="card-header">
-                  Book {{ $user->name }}
+                  Doctor {{ $user->name }}
                 </div>
 
                 <div class="card-body">
@@ -36,9 +36,9 @@
                             </tr>
                         </tbody>
                       </table>
-                    <a href="{{ route('admin.users.index')}}" class="btn">Back</a>
-                    <a href="{{ route('admin.users.edit', $user->id)}}" class="btn btn-secondary">Edit</a>
-                    <form style="display:inline-block" method="POST" action="{{ route('admin.users.destroy', $user->id) }}">
+                    <a href="{{ route('admin.doctors.index')}}" class="btn">Back</a>
+                    <a href="{{ route('admin.doctors.edit', $user->id)}}" class="btn btn-secondary">Edit</a>
+                    <form style="display:inline-block" method="POST" action="{{ route('admin.doctors.destroy', $user->id) }}">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" class="form-control btn btn-danger">Delete</button>

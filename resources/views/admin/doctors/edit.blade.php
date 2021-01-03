@@ -6,7 +6,7 @@
     <div class="col-md-8 col-md-offset-2">
      <div class="card">
        <div class="card-header">
-         Edit User
+         Edit Doctor
        </div>
 
        <div class="card-body">
@@ -19,7 +19,7 @@
                </ul>
              </div>
          @endif
-        <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+        <form action="{{ route('admin.doctors.update', $user->id) }}" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="_method" value="PUT">
                 <div class="form-group">
@@ -47,7 +47,7 @@
                     <input type="text" class="form-control" name="email" id="email" value="{{ old('emails', $user->email) }}" />
                 </div>
                 <div>
-                  <a href="{{ route('admin.users.index') }}" class="btn btn-default">Cancel</a>
+                  <a href="{{ route('admin.doctors.index') }}" class="btn btn-default">Cancel</a>
                   <button type="submit" class="btn btn-primary pull-right">Submit</button>
                 </div>
               </form>

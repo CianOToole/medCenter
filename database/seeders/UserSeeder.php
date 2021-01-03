@@ -36,15 +36,15 @@ class UserSeeder extends Seeder
         $user->phone = '0862084993';
         $user->password = Hash::make('secret');
         $user->save();
-        $admin->roles()->attach($role_doctor);
+        $user->roles()->attach($role_doctor);
 
-        $user = new User;
-        $user->name = 'Joe K';
-        $user->email = 'patient@bookstore.ie';
-        $user->address = '63 the hill';
-        $user->phone = '0862084993';
-        $user->password = Hash::make('secret');
-        $user->save();
-        $admin->roles()->attach($role_patient);
+        $user2 = new User;
+        $user2->name = 'Joe K';
+        $user2->email = 'patient@bookstore.ie';
+        $user2->address = '63 the hill';
+        $user2->phone = '0862084993';
+        $user2->password = Hash::make('secret');
+        $user2->save();
+        $user2->roles()->attach($role_patient);
     }
 }
