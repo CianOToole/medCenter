@@ -101,10 +101,12 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-        $roles =  UserRole::all();
+        $role =  UserRole::where('user_id', $id)->get();
         $user = User::findOrFail($id);
+        $roles = Role::all();
         return view('admin.patients.edit', [
             'user' => $user,
+            'role' => $role,
             'roles' => $roles
         ]);
     }
@@ -151,10 +153,7 @@ class PatientController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        $role =  UserRole::where('user_id', $id)->get();
-        foreach($role as $r){
-            $user->roles()->detach($r->id);
-        }
+        $user->roles()->detach();
         $user->delete();
         return redirect()->route('admin.patients.index');
     }

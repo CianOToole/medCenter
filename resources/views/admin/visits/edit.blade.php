@@ -40,6 +40,19 @@
                  @endforeach
                  </select>
               </div>
+
+              <div class="form-group">
+                <label for="patient_id">Patient</label>
+               <select name="patient_id">
+                 @foreach ($patients as $patient)
+                    <option value="{{$patient->id}}"{{(old('patient_id') == $patient->id)? "selected" : ""}}>{{$patient->user->name}}</option>
+               @endforeach
+               </select>
+            </div>
+            <div class="form-group">
+              <label for="time">Cost of Visit</label>
+              <input type="text" class="form-control" name="price" id="price" value="{{ old('price', $visit->price) }}" />
+          </div>
                 <div>
                   <a href="{{ route('admin.visits.index') }}" class="btn btn-default">Cancel</a>
                   <button type="submit" class="btn btn-primary pull-right">Submit</button>

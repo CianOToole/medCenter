@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-header">
                   Doctors
-                <a href="{{ route('admin.doctors.create')}}" class="btn btn-primary float-right">Add</a>
+                {{-- <a href="{{ route('admin.doctors.create')}}" class="btn btn-primary float-right">Add</a> --}}
                 </div>
 
                 <div class="card-body">

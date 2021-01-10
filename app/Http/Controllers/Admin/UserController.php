@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Patient;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
@@ -31,7 +33,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        $roles =  UserRole::all();
+        $roles =  UserRole::where('role_id', '4')->get();
         return view('admin.users.index', [
             'users' => $users,
             'roles' => $roles
@@ -64,13 +66,15 @@ class UserController extends Controller
             'address' => 'required|max:191',
             'role_id' => 'required',
             'phone' => 'required|max:191',
-            'email' => 'required|max:191'
+            'email' => 'required|max:191',
+            'password' => 'required|max:191'
         ]);
         $user = new User;
         $user->name = $request->input('name');
         $user->address = $request->input('address');
         $user->phone = $request->input('phone');
         $user->email = $request->input('email');
+        $user->password = $request->input('password');
         $user->save();
         $user->roles()->attach(Role::where('id', $request->input('role_id'))->first());
 
@@ -119,11 +123,10 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-
+        $roleID = 4;
         $request->validate([
             'name' => 'required|max:191',
             'address' => 'required|max:191',
-            'role_id' => 'required',
             'phone' => 'required|max:191',
             'email' => 'required|max:191'
         ]);
@@ -134,8 +137,9 @@ class UserController extends Controller
         $user->phone = $request->input('phone');
         $user->email = $request->input('email');
         $user->save();
-        $user->roles()->detach($request->input('role_id'));
-
+        // $user->roles()->attach($request->input('role_id'));
+        // $user->roles()->detach($roleID);
+        
         return redirect()->route('admin.users.index');
     }
 
@@ -149,10 +153,52 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $role =  UserRole::where('user_id', $id)->get();
-        foreach($role as $r){
-            $user->roles()->detach($r->id);
-        }
+        $user->roles()->detach();
         $user->delete();
+        return redirect()->route('admin.users.index');
+    }
+
+    public function patient($id)
+    {
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        return view('admin.users.patient', [
+            'user' => $user,
+            'roles' => $roles          
+        ]);
+    }
+
+    public function makePatient(Request $request, $id)
+    {
+        
+        $roleID = 4;
+        $request->validate([
+            'policy_number' => 'required|max:191',
+            'insurance_company' => 'required|max:191',
+            'user_id' => 'required',
+            'role_id' => 'required'
+            
+        ]);
+        $user = User::findOrFail($id);
+        $patient = new Patient;
+        $patient->policy_number = $request->input('policy_number');
+        $patient->insurance_company = $request->input('insurance_company');
+        $patient->user_id = $request->input('user_id');
+        $patient->save();
+        $user->roles()->attach($request->input('role_id'));
+        $user->roles()->detach($roleID);
+        
+        return redirect()->route('admin.users.index');
+    }
+
+    public function makeDoctor($id)
+    {
+        $user = User::findOrFail($id);
+        $doctor = new Doctor;
+        $doctor->user_id = $user->id;
+        $doctor->save();
+        $user->roles()->attach(2);
+        $user->roles()->detach(4);
         return redirect()->route('admin.users.index');
     }
 }

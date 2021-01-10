@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Patient;
+namespace App\Http\Controllers\Doctor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,14 +11,14 @@ use App\Models\UserRole;
 use Auth;
 
 
-class PatientController extends Controller
+class DoctorController extends Controller
 {
 
 
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:patient');
+        $this->middleware('role:doctor');
     }
 
 
@@ -29,9 +29,9 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $visits = Visit::where('patient_id', Auth::id())->get();
+        $visits = Visit::where('doctor_id', Auth::id())->get();
         $doctors =  UserRole::where('role_id', '2')->get();
-        return view('user.patients.index', [
+        return view('user.doctors.index', [
             'visits' => $visits,
             'doctors' => $doctors
         ]);
@@ -44,8 +44,8 @@ class PatientController extends Controller
      */
     public function create()
     {
-        $roles =  UserRole::where('role_id', '2')->get();
-        return view('user.patients.create', [
+        $roles =  UserRole::where('role_id', '3')->get();
+        return view('user.doctors.create', [
             'roles' => $roles
         ]);
     }
@@ -61,17 +61,19 @@ class PatientController extends Controller
         $request->validate([
             'date' => 'required|max:191',
             'time' => 'required|max:191',
-            'doctor_id' => 'required'
+            'patient_id' => 'required',
+            'price' => 'required'
         ]);
         $visit = new Visit;
         $visit->visitDay = $request->input('date');
         $visit->visitTime = $request->input('time');
-        $visit->doctor_id = $request->input('doctor_id');
-        $visit->user_id = Auth::id();
+        $visit->patient_id = $request->input('patient_id');
+        $visit->doctor_id = Auth::id();
+        $visit->price = $request->input('price');
         $visit->save();
         
 
-        return redirect()->route('admin.visits.index');
+        return redirect()->route('user.doctors.index');
     }
 
     /**
@@ -84,7 +86,7 @@ class PatientController extends Controller
     {
         $visit = Visit::findOrFail($id);
         $role =  UserRole::where('user_id', $visit->doctor_id)->get();
-        return view('user.patients.show', [
+        return view('user.doctors.show', [
             'visit' => $visit,
             'role' => $role
         ]);
@@ -98,9 +100,9 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-        $doctors =  UserRole::where('role_id', '2')->get();
+        $doctors =  UserRole::where('role_id', '3')->get();
         $visit = Visit::findOrFail($id);
-        return view('admin.visits.edit', [
+        return view('user.doctors.edit', [
             'visit' => $visit,
             'doctors' => $doctors
         ]);
@@ -118,18 +120,20 @@ class PatientController extends Controller
         $request->validate([
             'date' => 'required|max:191',
             'time' => 'required|max:191',
-            'doctor_id' => 'required'
+            'patient_id' => 'required',
+            'price' => 'required'
         ]);
 
         $visit =  Visit::findOrFail($id);
         $visit->visitDay = $request->input('date');
         $visit->visitTime = $request->input('time');
-        $visit->doctor_id = $request->input('doctor_id');
-        $visit->user_id = Auth::id();
+        $visit->patient_id = $request->input('patient_id');
+        $visit->doctor_id = Auth::id();
+        $visit->price = $request->input('price');
         $visit->save();
         
 
-        return redirect()->route('admin.visits.index');
+        return redirect()->route('user.doctors.index');
     }
 
     /**
@@ -142,6 +146,6 @@ class PatientController extends Controller
     {
         $visit = Visit::findOrFail($id);
         $visit->delete();
-        return redirect()->route('admin.visits.index');
+        return redirect()->route('user.doctors.index');
     }
 }

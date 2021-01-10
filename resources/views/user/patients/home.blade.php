@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in bruh!') }}
+                    {{ __('You are logged in!') }}
+                    <a class="btn btn-primary" href="{{route('user.patients.index')}}">Visit</a>
                 </div>
             </div>
         </div>

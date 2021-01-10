@@ -6,7 +6,7 @@
     <div class="col-md-8 col-md-offset-2">
      <div class="card">
        <div class="card-header">
-         Add new user
+         Edit User
        </div>
 
        <div class="card-body">
@@ -19,30 +19,21 @@
                </ul>
              </div>
          @endif
-        <form action="{{ route('admin.visits.store') }}" method="POST">
+        <form action="{{ route('admin.users.makePatient', $user->id) }}" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="user_id" value="{{$user->id}}">
+                <input type="hidden" name="role_id" value="3">
                 <div class="form-group">
-                    <label for="date">Date of Visit</label>
-                    <input type="date" class="form-control" name="date" id="date" value="{{ old('date') }}" />
+                    <label for="policy_number">Policy Number</label>
+                    <input type="text" class="form-control" name="policy_number" id="policy_number" value="{{ old('policy_number') }}" />
                 </div>
-
                 <div class="form-group">
-                    <label for="time">Time of visit</label>
-                    <input type="time" class="form-control" name="time" id="time" value="{{ old('time') }}" />
+                    <label for="insurance_company">Insurance Company</label>
+                    <input type="text" class="form-control" name="insurance_company" id="insurance_company" value="{{ old('insurance_company') }}" />
                 </div>
-
-                <div class="form-group">
-                    <label for="doctor_id">Doctor</label>
-                   <select name="doctor_id">
-                     @foreach ($roles as $role)
-                        <option value="{{$role->id}}"{{(old('doctor_id') == $role->id)? "selected" : ""}}>{{$role->user->name}}</option>
-                   @endforeach
-                   </select>
-                </div>
-
                 <div>
-                  <a href="{{ route('admin.visits.index') }}" class="btn btn-default">Cancel</a>
+                  <a href="{{ route('admin.users.index') }}" class="btn btn-default">Cancel</a>
                   <button type="submit" class="btn btn-primary pull-right">Submit</button>
                 </div>
               </form>

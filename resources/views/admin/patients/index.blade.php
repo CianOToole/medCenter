@@ -9,13 +9,13 @@
 
             <div class="card">
                 <div class="card-header">
-                  Doctors
-                <a href="{{ route('admin.patients.create')}}" class="btn btn-primary float-right">Add</a>
+                  Patients
+                {{-- <a href="{{ route('admin.patients.create')}}" class="btn btn-primary float-right">Add</a> --}}
                 </div>
 
                 <div class="card-body">
                     @if (count($users) === 0)
-                      <p>There are no books</p>
+                      <p>There are no patients</p>
                     @else
                       <table id="table-books" class="table table-hover">
                         <thead>

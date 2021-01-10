@@ -30,14 +30,14 @@
                     <label for="address">address</label>
                     <input type="text" class="form-control" name="address" id="address" value="{{ old('address', $user->address) }}" />
                 </div>
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="role">Role</label>
                    <select name="role_id">
                      @foreach ($roles as $role)
                         <option value="{{$role->id}}"{{(old('role_id', $user->id) == $role->user_id) ? "selected" : ""}}>{{$role->role->name}}</option>
                      @endforeach
                    </select>
-                </div>
+                </div> --}}
                 <div class="form-group">
                     <label for="year">Year</label>
                     <input type="text" class="form-control" name="phone" id="phone" value="{{ old('phone', $user->phone) }}" />

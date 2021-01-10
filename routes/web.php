@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Admin\PatientController as AdminPatientController;
 use App\Http\Controllers\Admin\VisitController as AdminVisitController;
+use App\Http\Controllers\Patient\PatientController as UserPatientController;
+use App\Http\Controllers\Doctor\DoctorController as UserDoctorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +26,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
+Route::get('/doctor/home', [App\Http\Controllers\Doctor\HomeController::class, 'index'])->name('user.doctors.home');
+Route::get('/patient/home', [App\Http\Controllers\Patient\HomeController::class, 'index'])->name('user.patients.home');
 Route::get('/user/home', [App\Http\Controllers\User\HomeController::class, 'index'])->name('user.home');
 
 Route::get('/admin/users/', [AdminUserController::class, 'index'])->name('admin.users.index');
@@ -33,6 +37,9 @@ Route::post('/admin/users/store', [AdminUserController::class, 'store'])->name('
 Route::get('/admin/users/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
 Route::put('/admin/users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
 Route::delete('/admin/users/{id}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+Route::get('/admin/users/{id}/patient', [AdminUserController::class, 'patient'])->name('admin.users.patient');
+Route::put('/admin/users/{id}/makePatient', [AdminUserController::class, 'makePatient'])->name('admin.users.makePatient');
+Route::put('/admin/users/{id}/makeDoctor', [AdminUserController::class, 'makeDoctor'])->name('admin.users.makeDoctor');
 
 Route::get('/admin/doctors/', [AdminDoctorController::class, 'index'])->name('admin.doctors.index');
 Route::get('/admin/doctors/create', [AdminDoctorController::class, 'create'])->name('admin.doctors.create');
@@ -59,14 +66,14 @@ Route::put('/admin/visits/{id}', [AdminVisitController::class, 'update'])->name(
 Route::delete('/admin/visits/{id}', [AdminVisitController::class, 'destroy'])->name('admin.visits.destroy');
 
 
-Route::get('/user/doctors/', [AdminDoctorController::class, 'index'])->name('user.doctors.index');
-Route::get('/user/doctors/{id}', [AdminDoctorController::class, 'show'])->name('user.doctors.show');
-Route::delete('/user/doctors/{id}', [AdminDoctorController::class, 'destroy'])->name('user.doctors.destroy');
+Route::get('/user/doctors/', [UserDoctorController::class, 'index'])->name('user.doctors.index');
+Route::get('/user/doctors/create', [UserDoctorController::class, 'create'])->name('user.doctors.create');
+Route::get('/user/doctors/{id}', [UserDoctorController::class, 'show'])->name('user.doctors.show');
+Route::post('/user/doctors/store', [UserDoctorController::class, 'store'])->name('user.doctors.store');
+Route::get('/user/doctors/{id}/edit', [UserDoctorController::class, 'edit'])->name('user.doctors.edit');
+Route::put('/user/doctors/{id}', [UserDoctorController::class, 'update'])->name('user.doctors.update');
+Route::delete('/user/doctors/{id}', [UserDoctorController::class, 'destroy'])->name('user.doctors.destroy');
 
-Route::get('/user/patients/', [AdminPatientController::class, 'index'])->name('admin.patients.index');
-Route::get('/user/patients/create', [AdminPatientController::class, 'create'])->name('admin.patients.create');
-Route::get('/user/patients/{id}', [AdminPatientController::class, 'show'])->name('admin.patients.show');
-Route::post('/user/patients/store', [AdminPatientController::class, 'store'])->name('admin.patients.store');
-Route::get('/user/patients/{id}/edit', [AdminPatientController::class, 'edit'])->name('admin.patients.edit');
-Route::put('/user/patients/{id}', [AdminPatientController::class, 'update'])->name('admin.patients.update');
-Route::delete('/user/patients/{id}', [AdminPatientController::class, 'destroy'])->name('admin.patients.destroy');
+Route::get('/user/patients/', [UserPatientController::class, 'index'])->name('user.patients.index');
+Route::get('/user/patients/{id}', [UserPatientController::class, 'show'])->name('user.patients.show');
+// Route::delete('/user/patients/{id}', [UserPatientController::class, 'destroy'])->name('user.patients.destroy');

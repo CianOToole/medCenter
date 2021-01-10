@@ -33,9 +33,12 @@
                 <div class="form-group">
                     <label for="role">Role</label>
                    <select name="role_id">
-                     @foreach ($roles as $role)
+                     {{-- @foreach ($roles as $role)
                         <option value="{{$role->id}}"{{(old('role_id', $user->id) == $role->user_id) ? "selected" : ""}}>{{$role->role->name}}</option>
-                     @endforeach
+                     @endforeach --}}
+                     @foreach ($roles as $role)
+                     <option value="{{$role->id}}"{{(old('role_id') == $role->id)? "selected" : ""}}>{{$role->name}}</option>
+                @endforeach
                    </select>
                 </div>
                 <div class="form-group">

@@ -30,9 +30,16 @@ class HomeController extends Controller
         if($user->hasRole('admin')){
             $home = 'admin.home';
         }
-        elseif ($user->hasRole('user')) {
-            $home = 'user.home';
+        elseif ($user->hasRole('patient')) {
+            $home = 'user.patients.home';
         }
+        elseif ($user->hasRole('doctor')) {
+            $home = 'user.doctors.home';
+        }
+        elseif ($user->hasRole('user')) {
+            $home = 'home';
+        }
+
         // return redirect()->route($home);
         return view($home);
     }

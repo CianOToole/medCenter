@@ -6,7 +6,7 @@
     <div class="col-md-8 col-md-offset-2">
      <div class="card">
        <div class="card-header">
-         Add new user
+         Edit User
        </div>
 
        <div class="card-body">
@@ -19,43 +19,33 @@
                </ul>
              </div>
          @endif
-        <form action="{{ route('admin.users.store') }}" method="POST">
+        <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
+                <input type="hidden" name="_method" value="PUT">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" />
+                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name', $user->name) }}" />
                 </div>
-
                 <div class="form-group">
                     <label for="address">address</label>
-                    <input type="text" class="form-control" name="address" id="address" value="{{ old('address') }}" />
+                    <input type="text" class="form-control" name="address" id="address" value="{{ old('address', $user->address) }}" />
                 </div>
-
                 <div class="form-group">
-                    <label for="publisher">Role</label>
+                    <label for="role">Role</label>
                    <select name="role_id">
                      @foreach ($roles as $role)
-                        <option value="{{$role->id}}"{{(old('role_id') == $role->id)? "selected" : ""}}>{{$role->name}}</option>
-                   @endforeach
+                        <option value="{{$role->id}}"{{(old('role_id', $user->id) == $role->user_id) ? "selected" : ""}}>{{$role->role->name}}</option>
+                     @endforeach
                    </select>
                 </div>
-
                 <div class="form-group">
-                    <label for="phone">phone</label>
-                    <input type="text" class="form-control" name="phone" id="phone" value="{{ old('phone') }}" />
+                    <label for="year">Year</label>
+                    <input type="text" class="form-control" name="phone" id="phone" value="{{ old('phone', $user->phone) }}" />
                 </div>
-
                 <div class="form-group">
-                    <label for="email">email</label>
-                    <input type="text" class="form-control" name="email" id="email" value="{{ old('email') }}" />
+                    <label for="email">ISBN</label>
+                    <input type="text" class="form-control" name="email" id="email" value="{{ old('emails', $user->email) }}" />
                 </div>
-
-                <div class="form-group">
-                  <label for="password">password</label>
-                  <input type="password" class="form-control" name="password" id="password" value="{{ old('passwords') }}" />
-              </div>
-
                 <div>
                   <a href="{{ route('admin.users.index') }}" class="btn btn-default">Cancel</a>
                   <button type="submit" class="btn btn-primary pull-right">Submit</button>

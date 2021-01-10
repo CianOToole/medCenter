@@ -65,6 +65,7 @@ class DoctorController extends Controller
             'role_id' => 'required',
             'phone' => 'required|max:191',
             'email' => 'required|max:191'
+            
         ]);
         $user = new User;
         $user->name = $request->input('name');
@@ -134,11 +135,11 @@ class DoctorController extends Controller
         $user->phone = $request->input('phone');
         $user->email = $request->input('email');
         $user->save();
-        foreach($role as $r){
-            if($r->role_id  != $request->input('role_id')){
-                // $user->roles()->attach($request->input('role_id'));
-            }
-        }
+        // foreach($role as $r){
+        //     if($r->role_id  != $request->input('role_id')){
+        //         // $user->roles()->attach($request->input('role_id'));
+        //     }
+        // }
         return redirect()->route('admin.doctors.index');
     }
 

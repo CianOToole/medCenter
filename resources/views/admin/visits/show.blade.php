@@ -6,7 +6,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="card">
                 <div class="card-header">
-                  Doctor {{ $visit->name }}
+                  Visits {{ $visit->name }}
                 </div>
 
                 <div class="card-body">
@@ -21,10 +21,20 @@
                               <td>{{ $visit->visitTime }}</td>
                             </tr>
                             <tr>
-                              <td>Dcotor</td>
+                              <td>Doctor</td>
                               @foreach ($role as $r)
                               <td>{{ $r->user->name }}</td>
                               @endforeach
+                            </tr>
+                            <tr>
+                              <td>Doctor</td>
+                              @foreach ($role as $r)
+                              <td>{{ $r->user->name }}</td>
+                              @endforeach
+                            </tr>
+                            <tr>
+                              <td>Cost</td>
+                              <td>{{ $visit->price }}</td>
                             </tr>
                         </tbody>
                       </table>

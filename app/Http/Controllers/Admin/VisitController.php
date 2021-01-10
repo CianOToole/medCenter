@@ -46,9 +46,11 @@ class VisitController extends Controller
      */
     public function create()
     {
-        $roles =  UserRole::where('role_id', '2')->get();
+        $doctors =  UserRole::where('role_id', '2')->get();
+        $patients =  UserRole::where('role_id', '3')->get();
         return view('admin.visits.create', [
-            'roles' => $roles
+            'doctors' => $doctors,
+            'patients' => $patients
         ]);
     }
 
@@ -63,13 +65,16 @@ class VisitController extends Controller
         $request->validate([
             'date' => 'required|max:191',
             'time' => 'required|max:191',
-            'doctor_id' => 'required'
+            'doctor_id' => 'required',
+            'patient_id' => 'required',
+            'price' => 'required'
         ]);
         $visit = new Visit;
         $visit->visitDay = $request->input('date');
         $visit->visitTime = $request->input('time');
         $visit->doctor_id = $request->input('doctor_id');
-        $visit->user_id = Auth::id();
+        $visit->patient_id = $request->input('patient_id');
+        $visit->price = $request->input('price');
         $visit->save();
         
 
@@ -120,14 +125,17 @@ class VisitController extends Controller
         $request->validate([
             'date' => 'required|max:191',
             'time' => 'required|max:191',
-            'doctor_id' => 'required'
+            'doctor_id' => 'required',
+            'patient_id' => 'required',
+            'price' => 'required'
         ]);
 
         $visit =  Visit::findOrFail($id);
         $visit->visitDay = $request->input('date');
         $visit->visitTime = $request->input('time');
         $visit->doctor_id = $request->input('doctor_id');
-        $visit->user_id = Auth::id();
+        $visit->patient_id = $request->input('patient_id');
+        $visit->price = $request->input('price');
         $visit->save();
         
 

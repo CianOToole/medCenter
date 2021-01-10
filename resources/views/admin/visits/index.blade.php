@@ -22,6 +22,7 @@
                           <th>Day</th>
                           <th>Visit Time</th>
                           <th>Doctor</th>
+                          <th>Cost</th>
                         </thead>
                         <tbody>
                           @foreach ($visits as $visit)
@@ -33,6 +34,7 @@
                               <td>{{ $doctor->user->name }}</td>
                               @endif
                               @endforeach
+                              <td>{{ $visit->price }}</td>
                               <td>
                                 <a href="{{ route('admin.visits.show', $visit->id )}}" class="btn btn-primary">View</a>
                                 <a href="{{ route('admin.visits.edit', $visit->id )}}" class="btn btn-warning">Edit</a>

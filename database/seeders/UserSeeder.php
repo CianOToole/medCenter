@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
 
         $admin = new User;
         $admin->name = 'Mo Che';
-        $admin->email = 'admin@bookstore.ie';
+        $admin->email = 'admin@medcenter.ie';
         $admin->address = '63 the hill';
         $admin->phone = '0862084993';
         $admin->password = Hash::make('secret');
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
 
         $user = new User;
         $user->name = 'Cian O';
-        $user->email = 'doctor@bookstore.ie';
+        $user->email = 'doctor@medcenter.ie';
         $user->address = '63 the hill';
         $user->phone = '0862084993';
         $user->password = Hash::make('secret');
@@ -40,11 +40,14 @@ class UserSeeder extends Seeder
 
         $user2 = new User;
         $user2->name = 'Joe K';
-        $user2->email = 'patient@bookstore.ie';
+        $user2->email = 'patient@medcenter.ie';
         $user2->address = '63 the hill';
         $user2->phone = '0862084993';
         $user2->password = Hash::make('secret');
         $user2->save();
         $user2->roles()->attach($role_patient);
+
+       //$user = User::factory()->times(10)->create();
+       
     }
 }

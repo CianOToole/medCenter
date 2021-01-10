@@ -19,40 +19,33 @@
                </ul>
              </div>
          @endif
-        <form action="{{ route('admin.doctors.store') }}" method="POST">
+        <form action="{{ route('user.doctors.store') }}" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" />
+                    <label for="date">Date of Visit</label>
+                    <input type="date" class="form-control" name="date" id="date" value="{{ old('date') }}" />
                 </div>
 
                 <div class="form-group">
-                    <label for="address">address</label>
-                    <input type="text" class="form-control" name="address" id="address" value="{{ old('address') }}" />
+                    <label for="time">Time of visit</label>
+                    <input type="time" class="form-control" name="time" id="time" value="{{ old('time') }}" />
                 </div>
 
                 <div class="form-group">
-                    <label for="publisher">Role</label>
-                   <select name="role_id">
+                    <label for="patient_id">Patient</label>
+                   <select name="patient_id">
                      @foreach ($roles as $role)
-                        <option value="{{$role->id}}"{{(old('role_id') == $role->id)? "selected" : ""}}>{{$role->name}}</option>
+                        <option value="{{$role->id}}"{{(old('patient_id') == $role->id)? "selected" : ""}}>{{$role->user->name}}</option>
                    @endforeach
                    </select>
                 </div>
-
                 <div class="form-group">
-                    <label for="phone">phone</label>
-                    <input type="text" class="form-control" name="phone" id="phone" value="{{ old('phone') }}" />
-                </div>
-
-                <div class="form-group">
-                    <label for="email">email</label>
-                    <input type="text" class="form-control" name="email" id="email" value="{{ old('email') }}" />
-                </div>
-
+                  <label for="price">Cost of Visit</label>
+                  <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}" />
+              </div>
                 <div>
-                  <a href="{{ route('admin.doctors.index') }}" class="btn btn-default">Cancel</a>
+                  <a href="{{ route('user.doctors.index') }}" class="btn btn-default">Cancel</a>
                   <button type="submit" class="btn btn-primary pull-right">Submit</button>
                 </div>
               </form>

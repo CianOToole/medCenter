@@ -9,38 +9,36 @@
 
             <div class="card">
                 <div class="card-header">
-                  Doctors
-                <a href="{{ route('admin.doctors.create')}}" class="btn btn-primary float-right">Add</a>
+                  Doctor 
+                <a href="{{ route('user.doctors.create')}}" class="btn btn-primary float-right">Add</a>
                 </div>
 
                 <div class="card-body">
-                    @if (count($users) === 0)
-                      <p>There are no books</p>
+                    @if (count($visits) === 0)
+                      <p>There are no Visits</p>
                     @else
                       <table id="table-books" class="table table-hover">
                         <thead>
-                          <th>name</th>
-                          <th>email</th>
-                          <th>Role</th>
-                          <th>address</th>
-                          <th>phone</th>
+                          <th>Day</th>
+                          <th>Visit Time</th>
+                          <th>Doctor</th>
+                          <th>Cost</th>
                         </thead>
                         <tbody>
-                          @foreach ($roles as $role)
-                            <tr data-id="{{ $role->user->id }}">
-                              <td>{{ $role->user->name }}</td>
-                              <td>{{ $role->user->email }}</td>
-                                @if($role->user->id == $role->user_id)
-                                  <td>{{$role->role->name}}</td>         
-                                @else
-                                  <td>{{ "No Role"}}</td>
-                                @endif
-                              <td>{{ $role->user->address }}</td>
-                              <td>{{ $role->user->phone }}</td>
+                          @foreach ($visits as $visit)
+                            <tr data-id="{{ $visit->id }}">
+                              <td>{{ $visit->visitDay }}</td>
+                              <td>{{ $visit->visitTime }}</td>
+                              @foreach ($doctors as $doctor)
+                              @if($doctor->id == $visit->doctor_id)
+                              <td>{{ $doctor->user->name }}</td>
+                              @endif
+                              @endforeach
+                              <td>{{ $visit->price }}</td>
                               <td>
-                                <a href="{{ route('admin.doctors.show', $role->user->id )}}" class="btn btn-primary">View</a>
-                                <a href="{{ route('admin.doctors.edit', $role->user->id )}}" class="btn btn-warning">Edit</a>
-                                <form style="display:inline-block" method="POST" action="{{ route('admin.doctors.destroy', $role->user->id) }}">
+                                <a href="{{ route('user.doctors.show', $visit->id )}}" class="btn btn-primary">View</a>
+                                <a href="{{ route('user.doctors.edit', $visit->id )}}" class="btn btn-warning">Edit</a>
+                                <form style="display:inline-block" method="POST" action="{{ route('user.doctors.destroy', $visit->id) }}">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <button type="submit" class="form-control btn btn-danger">Delete</button>

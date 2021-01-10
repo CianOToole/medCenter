@@ -6,7 +6,7 @@
     <div class="col-md-8 col-md-offset-2">
      <div class="card">
        <div class="card-header">
-         Add new user
+         Add new Visit
        </div>
 
        <div class="card-body">
@@ -35,11 +35,24 @@
                 <div class="form-group">
                     <label for="doctor_id">Doctor</label>
                    <select name="doctor_id">
-                     @foreach ($roles as $role)
-                        <option value="{{$role->id}}"{{(old('doctor_id') == $role->id)? "selected" : ""}}>{{$role->user->name}}</option>
+                     @foreach ($doctors as $doctor)
+                        <option value="{{$doctor->id}}"{{(old('doctor_id') == $doctor->id)? "selected" : ""}}>{{$doctor->user->name}}</option>
                    @endforeach
                    </select>
                 </div>
+
+                <div class="form-group">
+                  <label for="patient_id">Patient</label>
+                 <select name="patient_id">
+                   @foreach ($patients as $patient)
+                      <option value="{{$patient->id}}"{{(old('patient_id') == $patient->id)? "selected" : ""}}>{{$patient->user->name}}</option>
+                 @endforeach
+                 </select>
+              </div>
+              <div class="form-group">
+                <label for="price">Cost of Visit</label>
+                <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}" />
+            </div>
 
                 <div>
                   <a href="{{ route('admin.visits.index') }}" class="btn btn-default">Cancel</a>

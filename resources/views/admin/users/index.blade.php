@@ -9,13 +9,13 @@
 
             <div class="card">
                 <div class="card-header">
-                  User
+                  User 
                 <a href="{{ route('admin.users.create')}}" class="btn btn-primary float-right">Add</a>
                 </div>
 
                 <div class="card-body">
                     @if (count($users) === 0)
-                      <p>There are no books</p>
+                      <p>There are no Users</p>
                     @else
                       <table id="table-books" class="table table-hover">
                         <thead>
@@ -40,7 +40,14 @@
                               <td>{{ $role->user->phone }}</td>
                               <td>
                                 <a href="{{ route('admin.users.show', $role->user->id )}}" class="btn btn-primary">View</a>
-                                <a href="{{ route('admin.users.edit', $role->user->id )}}" class="btn btn-warning">Edit</a>
+                                {{-- <a href="{{ route('admin.users.edit', $role->user->id )}}" class="btn btn-warning">Edit</a> --}}
+                                <a href="{{ route('admin.users.patient', $role->user->id )}}" class="btn btn-secondary">Make Patient</a>
+                                <form style="display:inline-block" method="POST" action="{{ route('admin.users.makeDoctor', $role->user->id) }}">
+                                  <input type="hidden" name="_method" value="PUT">
+                                  <input type="hidden" name="user_id" value="{{$role->user->id}}">
+                                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                  <button type="submit" class="form-control btn btn-secondary">Make Doctor</button>
+                              </form>
                                 <form style="display:inline-block" method="POST" action="{{ route('admin.users.destroy', $role->user->id) }}">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">

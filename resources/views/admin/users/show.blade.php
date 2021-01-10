@@ -13,26 +13,22 @@
                       <table class="table table-hover">
                         <tbody>
                             <tr>
-                              <td>Title</td>
+                              <td>Name</td>
                               <td>{{ $user->name }}</td>
                             </tr>
                             <tr>
-                              <td>Author</td>
+                              <td>email</td>
                               <td>{{ $user->email }}</td>
                             </tr>
                             <tr>
-                              <td>Publisher</td>
+                              <td>address</td>
                               @foreach ($role as $r)
                               <td>{{ $r->role->name }}</td>
                               @endforeach
                             </tr>
                             <tr>
-                              <td>Year</td>
+                              <td>phone</td>
                               <td>{{ $user->address }}</td>
-                            </tr>
-                            <tr>
-                              <td>ISBN</td>
-                              <td>{{ $user->phone }}</td>
                             </tr>
                         </tbody>
                       </table>
